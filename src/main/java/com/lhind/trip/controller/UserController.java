@@ -57,6 +57,7 @@ public class UserController {
     @GetMapping("/password")
     public String changePasswordPage(Model model){
         model.addAttribute("updateDto", new UserUpdatePasswordDto());
+        model.addAttribute("role", userService.getPrincipalAuthority());
         return "/user/changePassword";
     }
 
@@ -68,10 +69,11 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping
     public String getUpdateUserPage(Model model, Principal principal){
         model.addAttribute("user", userService.findByEmail(principal.getName()));
+        model.addAttribute("role", userService.getPrincipalAuthority());
         return "user/updatePersInfo";
     }
 

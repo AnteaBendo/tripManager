@@ -130,4 +130,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserCreateDto, UserUpdateDt
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return  ((UserDetails)principal).getUsername();
     }
+
+    public String getPrincipalAuthority() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return  ((UserDetails)principal).getAuthorities().toString();
+    }
 }

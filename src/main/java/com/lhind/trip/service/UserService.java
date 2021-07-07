@@ -4,6 +4,8 @@ import com.lhind.trip.dto.user.*;
 import com.lhind.trip.model.User;
 import com.lhind.trip.security.entity.AuthenticationRequest;
 import com.lhind.trip.security.entity.AuthenticationResponse;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -31,4 +33,6 @@ public interface UserService extends BaseService<UserCreateDto, UserUpdateDto, U
     List<UserResponseDto> findAll();
 
     AuthenticationResponse login(AuthenticationRequest authenticationRequest) throws Exception;
+
+    String getPrincipalAuthority();
 }

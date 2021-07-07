@@ -13,7 +13,17 @@
   <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 <body class="overflow-hidden">
-<div th:replace="fragments/navBar.html :: navbar">
+<div th:if="${role.equals('[ROLE_USER]')}">
+  <div th:replace="fragments/navBar.html :: navbar">
+
+  </div>
+
+</div>
+
+<div th:if="${role.equals('[ROLE_ADMIN]')}">
+  <div th:replace="fragments/navBar.html :: navBarAdmin">
+
+  </div>
 
 </div>
 
