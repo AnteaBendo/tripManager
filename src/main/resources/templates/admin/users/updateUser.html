@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Update User</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body class="overflow-hidden">
+<div th:replace="fragments/navBar.html :: navBarAdmin">
+
+</div>
+
+<div class="container pt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h4 class="mb-5" th:text="${user.firstName} + ' ' + ${user.lastName} + ' information'"></h4>
+            <form th:action="'/admin/users/' + ${user.id}" th:object="${updateDto}" method="POST">
+                <div class="row">
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control style-border rounded-0"
+                                    name="firstName"
+                                    id="firstName"
+                                    th:value="${user.firstName}"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control style-border rounded-0"
+                                    name="lastName"
+                                    id="lastName"
+                                    th:value="${user.lastName}"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input
+                                    type="email"
+                                    class="form-control style-border rounded-0"
+                                    name="email"
+                                    id="email"
+                                    aria-describedby="emailHelp"
+                                    th:value="${user.email}"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select
+                                    name="role"
+                                    id="role"
+                                    class="form-control style-border rounded-0"
+                            >
+                                <option value="USER" th:selected="${user.role.role.equals('USER')}">User</option>
+
+                                <option value="ADMIN" th:selected="${user.role.role.equals('ADMIN')}">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3 gy-4"></div>
+                    <div class="col-3 gy-4">
+                        <button
+                                type="submit"
+                                class="btn btn-success float-end w-100 mx-2 my-3"
+                        >
+                            Save
+                        </button>
+                    </div>
+                    <div class="col-3 gy-4">
+                        <input
+                                type="reset"
+                                class="btn btn-danger float-end w-100 mx-2 my-3"
+                                value="Reset"
+                        >
+                    </div>
+                    <div class="col-3 gy-4"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

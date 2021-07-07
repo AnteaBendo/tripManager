@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update FLight</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+
+<div th:replace="fragments/navBar.html :: navbar"></div>
+
+<div class="card card-body">
+  <form th:action="'/trips/' + ${trip.id} + '/flights'" th:object="${flightUpdateDto}" method="POST">
+    <div class="row">
+      <div class="col-6 gy-3">
+        <div class="form-group">
+          <label for="departureAirport">Departure Airport</label>
+
+          <select
+                  name="departureAirport"
+                  id="departureAirport"
+                  class="form-control style-border rounded-0"
+                  required
+          >
+            <option value="" selected disabled></option>
+            <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
+                    + ${airport.city.name} + ', ' + ${airport.city.country.name}"
+                    th:selected="${airport.id == flight.id}"></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-6 gy-3">
+        <div class="form-group">
+          <label for="departureDate">Departure Date</label>
+          <input
+                  type="date"
+                  class="form-control style-border rounded-0"
+                  name="departureDate"
+                  id="departureDate"
+                  th:value="${flight.departureDate}"
+                  required
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 gy-3">
+        <div class="form-group">
+          <label for="landingAirport">Landing City</label>
+          <select
+                  name="landingAirport"
+                  id="landingAirport"
+                  class="form-control style-border rounded-0"
+                  required
+          >
+            <option value="" selected disabled></option>
+            <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
+                    + ${airport.city.name} + ', ' + ${airport.city.country.name}"></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-6 gy-3">
+        <div class="form-group">
+          <label for="landingDate">Landing Date</label>
+          <input
+                  type="date"
+                  class="form-control style-border rounded-0"
+                  name="landingDate"
+                  id="landingDate"
+                  required
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 gy-4"></div>
+      <div class="col-3 gy-4">
+        <button
+                type="submit"
+                class="btn btn-success float-end w-100 mx-2 my-3"
+        >
+          Save
+        </button>
+      </div>
+      <div class="col-3 gy-4">
+        <button
+                type="submit"
+                class="btn btn-danger float-end w-100 mx-2 my-3"
+        >
+          Cancel
+        </button>
+      </div>
+      <div class="col-3 gy-4"></div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

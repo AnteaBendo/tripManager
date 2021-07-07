@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Trip</title>
+
+  <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+  />
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body class="overflow-hidden">
+<div th:replace="fragments/navBar.html :: navbar">
+
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h4>Add a Trip</h4>
+      <form action="/trips/create" th:object="${tripCreateDto}" method="POST">
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="reason">Reason</label>
+              <select
+                      name="reason"
+                      id="reason"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option value="" selected disabled></option>
+                <option value="MEETING">Meeting</option>
+
+                <option value="TRAINING">Training</option>
+
+                <option value="PROJECT">Project</option>
+
+                <option value="WORKSHOP">Workshop</option>
+
+                <option value="EVENT">Event</option>
+
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <br />
+              <textarea
+                      name="description"
+                      class="form-control style-border rounded-0"
+                      id="description"
+                      rows="4"
+                      required
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="departureCity">Departure City</label>
+              <select
+                      name="departureCity"
+                      id="departureCity"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option value="" selected disabled></option>
+                <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name} + ', ' + ${city.country.name}"></option>
+              </select>
+
+            </div>
+          </div>
+
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="departureDate">Departure Date</label>
+              <input
+                      type="date"
+                      class="form-control style-border rounded-0"
+                      name="departureDate"
+                      id="departureDate"
+                      required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="arrivalCity">Arrival City</label>
+              <select
+                      name="arrivalCity"
+                      id="arrivalCity"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option value="" selected disabled></option>
+                <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name} + ', ' + ${city.country.name}"></option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="arrivalDate">Arrival Date</label>
+              <input
+                      type="date"
+                      class="form-control style-border rounded-0"
+                      name="arrivalDate"
+                      id="arrivalDate"
+                      required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3 gy-4"></div>
+          <div class="col-3 gy-4">
+            <button
+                    type="submit"
+                    class="btn btn-success float-end w-100 mx-2 my-3"
+            >
+              Save
+            </button>
+          </div>
+          <div class="col-3 gy-4">
+            <button
+                    type="submit"
+                    class="btn btn-danger float-end w-100 mx-2 my-3"
+            >
+              Cancel
+            </button>
+          </div>
+          <div class="col-3 gy-4"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

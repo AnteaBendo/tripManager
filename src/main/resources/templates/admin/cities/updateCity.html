@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Update City</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body class="overflow-hidden">
+<div th:replace="fragments/navBar.html :: navBarAdmin">
+
+</div>
+
+<div class="container pt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h4 class="mb-5">Update City</h4>
+            <form th:action="'/admin/cities/' + ${city.id}" th:object="${updateDto}" method="POST">
+                <div class="row">
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control style-border rounded-0"
+                                    name="name"
+                                    id="name"
+                                    th:value="${city.name}"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select
+                                    name="country"
+                                    id="country"
+                                    class="form-control style-border rounded-0"
+                                    required
+                            >
+                                <option th:each="country:${countries}" th:value="${country.id}"
+                                        th:text="${country.name}"
+                                        th:selected="${country.id == city.country.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3 gy-4"></div>
+                    <div class="col-3 gy-4">
+                        <button
+                                type="submit"
+                                class="btn btn-success float-end w-100 mx-2 my-3"
+                        >
+                            Save
+                        </button>
+                    </div>
+                    <div class="col-3 gy-4">
+                        <input
+                                type="reset"
+                                class="btn btn-danger float-end w-100 mx-2 my-3"
+                                value="Reset"
+                        >
+                    </div>
+                    <div class="col-3 gy-4"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

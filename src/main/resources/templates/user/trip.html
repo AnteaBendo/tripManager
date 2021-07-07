@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trip</title>
+  <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+  />
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body style="overflow-x: hidden;">
+
+<div th:replace="fragments/navBar.html :: navbar">
+
+</div>
+
+<div class="container my-5">
+  <div class="row m-0 p-0">
+    <h3 class="card-text p-0 mb-3 pb-0 col-6">Trip</h3>
+
+    <form th:action="'/trips/' + ${trip.id} + '/approval'" class="col-6 text-right" th:if="${trip.status.getStatus().equals('CREATED')}">
+      <button class="btn btn-primary" style="font-size: smaller">
+        SEND APPROVAL
+      </button>
+    </form>
+  </div>
+  <div class="row my-2">
+    <div class="col-6">
+      <div class="row my-3">
+        <h5 class="col-4">Reason: </h5>
+        <h5 class="col-8" th:text="${trip.reason}"></h5>
+      </div>
+
+      <div class="row">
+        <div class="col-4 font-italic">Departure:</div>
+        <div class="col-4" th:text="${trip.departureCity.name} + ', ' + ${trip.departureCity.country.name}"></div>
+        <div class="col-4" th:text="${trip.departureDate}"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-4 font-italic">Arrival:</div>
+        <div class="col-4" th:text="${trip.arrivalCity.name} + ', ' + ${trip.arrivalCity.country.name}"></div>
+        <div class="col-4" th:text="${trip.arrivalDate}"></div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <h6 class="my-2">Description:</h6>
+      <p th:text="${trip.description}">
+      </p>
+    </div>
+  </div>
+
+
+  <h5 class="trips">Flights</h5>
+
+  <div class="justify-content-center">
+    <div th:text="${trip.flights.size() == 0} ? 'No flight is created for this trip!' : ''"
+         th:class="${trip.flights.size() == 0} ? 'd-inline btn btn-warning' : 'd-none'">
+
+  </div>
+
+  <div class="row horizontal-scrollable">
+    <div class="shadow-sm tripcard m-4 col" th:each="flight, index : ${trip.flights}">
+      <div class="card-body">
+        <div class="row m-0 p-0">
+          <h5 class="card-text p-0 mb-3 pb-0 " th:text="'Flight ' + ${index.index + 1}"></h5>
+        </div>
+
+        <div class="row">
+          <div class="col-4 font-italic">Departure:</div>
+          <div class="col-4" th:text="${flight.departureAirport.name} + ', ' + ${flight.departureAirport.city.name}
+                                            + ', ' + ${flight.departureAirport.city.country.name}"></div>
+          <div class="col-4" th:text="${flight.departureDate}"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4 font-italic">Landing:</div>
+          <div class="col-4" th:text="${flight.landingAirport.name} + ', ' + ${flight.landingAirport.city.name}
+                                            + ', ' + ${flight.landingAirport.city.country.name}"></div>
+          <div class="col-4" th:text="${flight.landingDate}"></div>
+        </div>
+
+        <div class="row my-2 font-italic">
+          <a th:href="'/trips/' + ${trip.id} + '/flights/' + ${flight.id}" class="col-4">Edit Flight</a>
+          <div class="col-4"></div>
+          <a th:href="'/trips/' + ${trip.id} + '/flights/' + ${flight.id} + '/delete'" class="col-4" style="color: red">Delete Flight</a>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="addFlight" th:if="${trip.status.getStatus().equals('APPROVED')}">
+      <p>
+      <h5 class="trips"  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add another flight</h5>
+      </p>
+
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <form th:action="'/trips/' + ${trip.id} + '/flights'" th:object="${flightCreateDto}" method="POST">
+            <div class="row">
+              <div class="col-6 gy-3">
+                <div class="form-group">
+                  <label for="departureAirport">Departure Airport</label>
+
+                  <select
+                          name="departureAirport"
+                          id="departureAirport"
+                          class="form-control style-border rounded-0"
+                          required
+                  >
+                    <option value="" selected disabled></option>
+                    <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
+                    + ${airport.city.name} + ', ' + ${airport.city.country.name}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-6 gy-3">
+                <div class="form-group">
+                  <label for="departureDate">Departure Date</label>
+                  <input
+                          type="date"
+                          class="form-control style-border rounded-0"
+                          name="departureDate"
+                          id="departureDate"
+                          required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6 gy-3">
+                <div class="form-group">
+                  <label for="landingAirport">Landing City</label>
+                  <select
+                          name="landingAirport"
+                          id="landingAirport"
+                          class="form-control style-border rounded-0"
+                          required
+                  >
+                    <option value="" selected disabled></option>
+                    <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
+                    + ${airport.city.name} + ', ' + ${airport.city.country.name}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-6 gy-3">
+                <div class="form-group">
+                  <label for="landingDate">Landing Date</label>
+                  <input
+                    type="date"
+                    class="form-control style-border rounded-0"
+                    name="landingDate"
+                    id="landingDate"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-3 gy-4"></div>
+              <div class="col-3 gy-4">
+                <button
+                  type="submit"
+                  class="btn btn-success float-end w-100 mx-2 my-3"
+                >
+                  Save
+                </button>
+              </div>
+              <div class="col-3 gy-4">
+                <button
+                  type="submit"
+                  class="btn btn-danger float-end w-100 mx-2 my-3"
+                >
+                  Cancel
+                </button>
+              </div>
+              <div class="col-3 gy-4"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

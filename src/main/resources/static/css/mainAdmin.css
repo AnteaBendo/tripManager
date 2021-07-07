@@ -1,0 +1,45 @@
+.title {
+    padding-left: 20px;
+    padding-top: 20px;
+    border-width: 5px;
+    margin-bottom: 0;
+}
+
+.background {
+    background-color: rgb(226, 194, 104);
+    color: rgb(255, 255, 255);
+    height: 90px;
+    border-left: solid rgb(226, 194, 104);
+    border-bottom: solid rgb(226, 194, 104);
+    text-align: start;
+}
+
+.button {
+    background-color: rgba(83, 83, 83, 0.781);
+    color: white;
+    border-radius: 0;
+}
+
+.button:hover {
+    background-color: rgba(2, 105, 57, 0.781);
+}
+
+.trips {
+    border-bottom: solid 2px rgb(3, 70, 109);
+}
+
+.margin {
+    padding: 10px;
+    margin: 40px;
+    overflow-x: hidden;
+}
+
+.tripcard {
+    max-width: 350px;
+}
+
+.horizontal-scrollable {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}

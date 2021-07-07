@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trip Manager</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/mainAdmin.css}" />
+</head>
+<body style="overflow-x: hidden;">
+
+<div th:replace="fragments/navBar.html :: navBarAdmin">
+
+</div>
+
+<div class="container-fluid margin">
+    <h3 class="trips">Trip Applications</h3>
+
+    <div class="horizontal-scrollable">
+        <div class="row m-0 p-0" >
+            <div class="shadow-sm tripcard m-4 col" th:each="created:${createdTrips}">
+                <div class="card-body">
+                    <div class="row m-0 p-0">
+                        <h3 class="card-text p-0 mb-3 pb-0 col-6" th:text="${created.user.firstName} + ' ' + ${created.user.lastName}"></h3>
+                    </div>
+                    <div class="row my-2">
+                        <h5 class="col-4">
+                            Reason:
+                        </h5>
+
+                        <h5 class="col-8" th:text="${created.reason}"></h5>
+                    </div>
+                    <h6 class="my-2">Description:</h6>
+                    <p th:text="${created.description}">
+                    </p>
+
+                    <div class="row">
+                        <div class="col-4 font-italic">
+                            Departure:
+                        </div>
+
+                        <div class="col-4" th:text="${created.departureCity.name} + ', ' + ${created.departureCity.country.name}">
+                        </div>
+
+                        <div class="col-4" th:text="${created.departureDate}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 font-italic">
+                            Arrival:
+                        </div>
+
+                        <div class="col-4" th:text="${created.arrivalCity.name} + ', ' + ${created.departureCity.country.name}">
+                        </div>
+
+                        <div class="col-4" th:text="${created.arrivalDate}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <form th:action="'/admin/approve/' + ${created.id}" class="col-6 float-left my-3">
+                            <button class="btn btn-primary" style="font-size: smaller">
+                                APPROVE
+                            </button>
+                        </form>
+
+                        <form th:action="'/admin/decline/' + ${created.id}" class="col-6 text-right my-3">
+                            <button class="btn btn-danger" style="font-size: smaller">
+                                DECLINE
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

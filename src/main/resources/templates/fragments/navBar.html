@@ -1,0 +1,31 @@
+<div th:fragment="navbar">
+  <div class="background">
+    <h2 class="title font-weight-bold">
+      Trip Manager
+    </h2>
+  </div>
+  <div class="nav justify-content-end">
+    <a href="/trips" class="button btn col-1"> All Trips</a>
+    <a href="/trips/create" class="button btn col-1"> Create a new Trip</a>
+    <a href="/" class="button btn col-1"> Update my info</a>
+    <a href="/logout" class="button btn col-1"> Log out</a>
+  </div>
+</div>
+
+
+<div th:fragment="navBarAdmin">
+  <div class="background">
+    <h2 class="title font-weight-bold">
+      Trip Manager
+    </h2>
+  </div>
+
+  <div class="nav justify-content-end">
+    <a href="/admin/users" class="button btn col-1">All Users</a>
+    <a href="/admin/airports" class="button btn col-1">All Airports</a>
+    <a href="/admin/cities" class="button btn col-1">All Cities</a>
+    <a href="/admin/countries" class="button btn col-1">All Countries</a>
+    <a href="/" class="button btn col-1"> Update my info</a>
+    <a href="/logout" class="button btn col-1"> Log out</a>
+  </div>
+</div>

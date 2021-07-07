@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Update Airport</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body class="overflow-hidden">
+<div th:replace="fragments/navBar.html :: navBarAdmin">
+
+</div>
+
+<div class="container pt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h4 class="mb-5">Update Airport</h4>
+            <form th:action="'/admin/airports/' + ${airport.id}" th:object="${updateDto}" method="POST">
+                <div class="row">
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control style-border rounded-0"
+                                    name="name"
+                                    id="name"
+                                    th:value="${airport.name}"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-6 gy-3">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <select
+                                    name="city"
+                                    id="city"
+                                    class="form-control style-border rounded-0"
+                                    required
+                            >
+                                <option th:each="city:${cities}" th:value="${city.id}"
+                                        th:text="${city.name} + ', ' + ${city.country.name}"
+                                        th:selected="${city.id == airport.city.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3 gy-4"></div>
+                    <div class="col-3 gy-4">
+                        <button
+                                type="submit"
+                                class="btn btn-success float-end w-100 mx-2 my-3"
+                        >
+                            Save
+                        </button>
+                    </div>
+                    <div class="col-3 gy-4">
+                        <input
+                                type="reset"
+                                class="btn btn-danger float-end w-100 mx-2 my-3"
+                                value="Reset"
+                        >
+                    </div>
+                    <div class="col-3 gy-4"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

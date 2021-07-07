@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Countries</title>
+
+    <link href="https://css.gg/code-slash.css" rel="stylesheet" />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navBar.html :: navBarAdmin">
+
+</div>
+
+<div class="container">
+    <div class="row px-0 py-4">
+        <div class="col-6">
+            <p style="font-size: 25px">All Countries</p>
+        </div>
+
+        <div class="col-6">
+            <a href="/admin/countries/add" class="btn btn-primary float-right">Add new country</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="display datatable" id="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody id="t-body">
+                <td colspan="5" th:if="${countries.size()==0}">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 col-lg-12 col-sm-12 gy-3">
+                            <div class="btn btn-warning" role="alert">
+                                There are no registered countries
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                <tr th:each="country, index: ${countries}">
+                    <td th:text="${index.index + 1}"></td>
+                    <td th:text="${country.name}"></td>
+                    <td>
+                        <a type="button" th:href="'/admin/countries/' + ${country.id} + '/cities'">Get Cities</a>
+                    </td>
+                    <td>
+                        <a type="button" th:href="'/admin/countries/' + ${country.id} + '/delete'" style="color: red">Delete</a>
+                    </td>
+                    <td>
+                        <a type="button" th:href="'/admin/countries/' + ${country.id}">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script
+        type="text/javascript"
+        charset="utf8"
+        src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"
+></script>
+<script>
+    $(".datatable").DataTable();
+</script>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+></script>
+</html>

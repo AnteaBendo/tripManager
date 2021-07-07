@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Update Trip</title>
+
+  <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+  />
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body class="overflow-hidden">
+<div th:replace="fragments/navBar.html :: navbar">
+
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h4>Add a Trip</h4>
+      <form th:action="'/trips/' + ${trip.id} + '/update'" th:object="${tripUpdateDto}" method="POST">
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="reason">Reason</label>
+              <select
+                      name="reason"
+                      id="reason"
+                      class="form-control style-border rounded-0"
+              >
+                <option value="MEETING" th:selected="${trip.reason.reason.equals('MEETING')}">Meeting</option>
+
+                <option value="TRAINING" th:selected="${trip.reason.reason.equals('TRAINING')}">Training</option>
+
+                <option value="PROJECT" th:selected="${trip.reason.reason.equals('PROJECT')}">Project</option>
+
+                <option value="WORKSHOP" th:selected="${trip.reason.reason.equals('WORKSHOP')}">Workshop</option>
+
+                <option value="EVENT" th:selected="${trip.reason.reason.equals('EVENT')}">Event</option>
+
+                <option value="OTHER" th:selected="${trip.reason.reason.equals('OTHER')}">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <br />
+              <textarea
+                      name="description"
+                      class="form-control style-border rounded-0"
+                      id="description"
+                      rows="4"
+                      th:text="${trip.description}"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="departureCity">Departure City</label>
+
+              <select
+                      name="departureCity"
+                      id="departureCity"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name} + ', ' + ${city.country.name}"
+                        th:selected="${city.id == trip.departureCity.id}"></option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="departureDate">Departure Date</label>
+              <input
+                      type="date"
+                      class="form-control style-border rounded-0"
+                      name="departureDate"
+                      id="departureDate"
+                      th:value="${trip.departureDate}"
+                      required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="arrivalCity">Arrival City</label>
+              <select
+                      name="arrivalCity"
+                      id="arrivalCity"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name} + ', ' + ${city.country.name}"
+                        th:selected="${city.id == trip.arrivalCity.id}"></option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="arrivalDate">Arrival Date</label>
+              <input
+                      type="date"
+                      class="form-control style-border rounded-0"
+                      name="arrivalDate"
+                      id="arrivalDate"
+                      th:value="${trip.arrivalDate}"
+                      required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3 gy-4"></div>
+          <div class="col-3 gy-4">
+            <button
+                    type="submit"
+                    class="btn btn-success float-end w-100 mx-2 my-3"
+            >
+              Save
+            </button>
+          </div>
+          <div class="col-3 gy-4">
+            <button
+                    type="reset"
+                    href="/trips"
+                    class="btn btn-danger float-end w-100 mx-2 my-3"
+            >
+              Cancel
+            </button>
+          </div>
+          <div class="col-3 gy-4"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
