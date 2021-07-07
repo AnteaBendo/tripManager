@@ -61,7 +61,7 @@
 
   <div class="justify-content-center">
     <div th:text="${trip.flights.size() == 0} ? 'No flight is created for this trip!' : ''"
-         th:class="${trip.flights.size() == 0} ? 'd-inline btn btn-warning' : 'd-none'">
+         th:class="${trip.flights.size() == 0} ? 'd-inline alert alert-warning my-2' : 'd-none'" role="alert">
 
   </div>
 

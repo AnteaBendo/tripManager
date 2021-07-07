@@ -124,13 +124,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/airports/{id}/delete")
-    public String deleteAirport(@PathVariable Long id){
-        airportService.delete(id);
-        return "redirect:/admin/airports";
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/cities")
     public String getAllCities(Model model){
         model.addAttribute("cities", cityService.findAll());
@@ -180,13 +173,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/cities/{id}/delete")
-    public String deleteCity(@PathVariable Long id){
-        cityService.delete(id);
-        return "redirect:/admin/cities";
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/countries")
     public String getAllCountries(Model model){
         model.addAttribute("countries", countryService.findAll());
@@ -232,17 +218,10 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/countries/{id}/delete")
-    public String deleteCountry(@PathVariable Long id){
-        countryService.delete(id);
-        return "redirect:/admin/countries";
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/approval/{id}")
     public String approveTrip(@PathVariable Long id){
         tripService.changeStatusToApproved(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

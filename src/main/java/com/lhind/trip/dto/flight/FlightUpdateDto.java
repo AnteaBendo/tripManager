@@ -13,10 +13,10 @@ import java.util.Date;
 @Setter
 public class FlightUpdateDto {
     @NotBlank
-    private Airport departureAirport;
+    private Long departureAirport;
 
     @NotBlank
-    private Airport landingAirport;
+    private Long landingAirport;
 
     @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")

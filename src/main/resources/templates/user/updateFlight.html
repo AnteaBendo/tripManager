@@ -16,94 +16,100 @@
 
 <div th:replace="fragments/navBar.html :: navbar"></div>
 
-<div class="card card-body">
-  <form th:action="'/trips/' + ${trip.id} + '/flights'" th:object="${flightUpdateDto}" method="POST">
-    <div class="row">
-      <div class="col-6 gy-3">
-        <div class="form-group">
-          <label for="departureAirport">Departure Airport</label>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h4 class="my-4">Update Flight</h4>
+        <form th:action="'/trips/' + ${trip.id} + '/flights/' + ${flight.id}" th:object="${flightUpdateDto}" method="POST">
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="departureAirport">Departure Airport</label>
 
-          <select
-                  name="departureAirport"
-                  id="departureAirport"
-                  class="form-control style-border rounded-0"
-                  required
-          >
-            <option value="" selected disabled></option>
-            <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
-                    + ${airport.city.name} + ', ' + ${airport.city.country.name}"
-                    th:selected="${airport.id == flight.id}"></option>
-          </select>
-        </div>
-      </div>
+              <select
+                      name="departureAirport"
+                      id="departureAirport"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option value="" selected disabled></option>
+                <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
+                        + ${airport.city.name} + ', ' + ${airport.city.country.name}"
+                        th:selected="${airport.id == flight.departureAirport.id}"></option>
+              </select>
+            </div>
+          </div>
 
-      <div class="col-6 gy-3">
-        <div class="form-group">
-          <label for="departureDate">Departure Date</label>
-          <input
-                  type="date"
-                  class="form-control style-border rounded-0"
-                  name="departureDate"
-                  id="departureDate"
-                  th:value="${flight.departureDate}"
-                  required
-          />
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="departureDate">Departure Date</label>
+              <input
+                      type="date"
+                      class="form-control style-border rounded-0"
+                      name="departureDate"
+                      id="departureDate"
+                      th:value="${flight.departureDate}"
+                      required
+              />
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="row">
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="landingAirport">Landing City</label>
+              <select
+                      name="landingAirport"
+                      id="landingAirport"
+                      class="form-control style-border rounded-0"
+                      required
+              >
+                <option value="" selected disabled></option>
+                <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
+                        + ${airport.city.name} + ', ' + ${airport.city.country.name}"
+                        th:selected="${airport.id == flight.landingAirport.id}"></option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-6 gy-3">
+            <div class="form-group">
+              <label for="landingDate">Landing Date</label>
+              <input
+                      type="date"
+                      class="form-control style-border rounded-0"
+                      name="landingDate"
+                      id="landingDate"
+                      th:value="${flight.landingDate}"
+                      required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3 gy-4"></div>
+          <div class="col-3 gy-4">
+            <button
+                    type="submit"
+                    class="btn btn-success float-end w-100 mx-2 my-3"
+            >
+              Save
+            </button>
+          </div>
+          <div class="col-3 gy-4">
+            <input
+                    type="reset"
+                    value="Reset"
+                    class="btn btn-danger float-end w-100 mx-2 my-3"
+            />
+          </div>
+          <div class="col-3 gy-4"></div>
+        </div>
+      </form>
     </div>
-
-    <div class="row">
-      <div class="col-6 gy-3">
-        <div class="form-group">
-          <label for="landingAirport">Landing City</label>
-          <select
-                  name="landingAirport"
-                  id="landingAirport"
-                  class="form-control style-border rounded-0"
-                  required
-          >
-            <option value="" selected disabled></option>
-            <option th:each="airport:${airportList}" th:value="${airport.id}" th:text="${airport.name} + ', '
-                    + ${airport.city.name} + ', ' + ${airport.city.country.name}"></option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-6 gy-3">
-        <div class="form-group">
-          <label for="landingDate">Landing Date</label>
-          <input
-                  type="date"
-                  class="form-control style-border rounded-0"
-                  name="landingDate"
-                  id="landingDate"
-                  required
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-3 gy-4"></div>
-      <div class="col-3 gy-4">
-        <button
-                type="submit"
-                class="btn btn-success float-end w-100 mx-2 my-3"
-        >
-          Save
-        </button>
-      </div>
-      <div class="col-3 gy-4">
-        <button
-                type="submit"
-                class="btn btn-danger float-end w-100 mx-2 my-3"
-        >
-          Cancel
-        </button>
-      </div>
-      <div class="col-3 gy-4"></div>
-    </div>
-  </form>
+  </div>
 </div>
 </body>
 </html>

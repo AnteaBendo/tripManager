@@ -23,6 +23,7 @@ public class TripMapper extends DtoMapper<TripCreateDto, TripUpdateDto, TripResp
     public TripResponseWithUserDto entityToResponseWithUserDto(Trip entity){
         TripResponseWithUserDto response = new TripResponseWithUserDto();
 
+        response.setId(entity.getId());
         response.setReason(entity.getReason());
         response.setDescription(entity.getDescription());
         response.setDepartureCity(cityMapper.entityToResponseDto(entity.getDepartureCity()));

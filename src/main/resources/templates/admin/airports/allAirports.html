@@ -41,7 +41,6 @@
           <th scope="col">City</th>
           <th scope="col">Country</th>
           <th scope="col"></th>
-          <th scope="col"></th>
         </tr>
         </thead>
         <tbody id="t-body">
@@ -60,9 +59,6 @@
           <td th:text="${airport.name}"></td>
           <td th:text="${airport.city.name}"></td>
           <td th:text="${airport.city.country.name}"></td>
-          <td>
-            <a type="button" th:href="'/admin/airports/' + ${airport.id} + '/delete'" style="color: red">Delete</a>
-          </td>
           <td>
             <a type="button" th:href="'/admin/airports/' + ${airport.id}">Edit</a>
           </td>

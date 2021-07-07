@@ -71,9 +71,9 @@ public class FlightServiceImpl extends BaseServiceImpl<FlightCreateDto, FlightUp
     public FlightResponseDto update(FlightUpdateDto updateDto, Long id) {
         Flight flight = repository.getById(id);
         flight.setDepartureDate(updateDto.getDepartureDate());
-        flight.setDepartureAirport(updateDto.getLandingAirport());
+        flight.setDepartureAirport(airportRepository.getById(updateDto.getLandingAirport()));
         flight.setLandingDate(updateDto.getLandingDate());
-        flight.setLandingAirport(updateDto.getLandingAirport());
+        flight.setLandingAirport(airportRepository.getById(updateDto.getLandingAirport()));
         return mapper.entityToResponseDto(repository.save(flight));
     }
 }
