@@ -114,8 +114,8 @@ public class TripServiceImpl extends BaseServiceImpl<TripCreateDto, TripUpdateDt
     }
 
     @Override
-    public List<TripResponseWithUserDto> findTripsWithStatusCREATED() {
-        return tripRepository.findTripByStatus(Status.CREATED)
+    public List<TripResponseWithUserDto> findTripsWithStatusWaiting() {
+        return tripRepository.findTripByStatus(Status.WAITING_FOR_APROVAL)
                 .stream()
                 .map(tripMapper::entityToResponseWithUserDto)
                 .collect(Collectors.toList());

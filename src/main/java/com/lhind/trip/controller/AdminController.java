@@ -1,17 +1,12 @@
 package com.lhind.trip.controller;
 
 import com.lhind.trip.dto.airport.AirportCreateDto;
-import com.lhind.trip.dto.airport.AirportResponseDto;
 import com.lhind.trip.dto.airport.AirportUpdateDto;
 import com.lhind.trip.dto.city.CityCreateDto;
-import com.lhind.trip.dto.city.CityResponseDto;
 import com.lhind.trip.dto.city.CityUpdateDto;
 import com.lhind.trip.dto.country.CountryCreateDto;
 import com.lhind.trip.dto.country.CountryUpdateDto;
-import com.lhind.trip.dto.trip.TripResponseDto;
-import com.lhind.trip.dto.trip.TripUpdateStatusDto;
 import com.lhind.trip.dto.user.UserCreateDto;
-import com.lhind.trip.dto.user.UserResponseDto;
 import com.lhind.trip.dto.user.UserUpdateFromAdminDto;
 import com.lhind.trip.service.*;
 import lombok.AllArgsConstructor;
@@ -19,8 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,7 +29,7 @@ public class AdminController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String mainPage(Model model){
-        model.addAttribute("createdTrips", tripService.findTripsWithStatusCREATED());
+        model.addAttribute("createdTrips", tripService.findTripsWithStatusWaiting());
         return "admin/mainAdmin";
     }
 

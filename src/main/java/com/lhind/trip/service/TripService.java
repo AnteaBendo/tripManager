@@ -29,6 +29,6 @@ public interface TripService extends BaseService<TripCreateDto, TripUpdateDto, T
 
     void changeStatusToApproved(Long id);
 
-    List<TripResponseWithUserDto> findTripsWithStatusCREATED();
+    List<TripResponseWithUserDto> findTripsWithStatusWaiting();
 
 }
