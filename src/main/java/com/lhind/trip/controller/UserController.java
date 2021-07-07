@@ -150,9 +150,12 @@ public class UserController {
     public String createFlight(@PathVariable Long trip, FlightCreateDto flightCreateDto, Model model){
         try{
             flightService.save(flightCreateDto, trip);
-        }catch(FlightException e){
-            model.addAttribute("error", e.getMessage());
-            return "redirect:back";
+        }catch(Exception e){
+            model.addAttribute("error", "Please insert valid dates!!");
+            model.addAttribute("trip", tripService.findById(trip));
+            model.addAttribute("flightCreateDto", new FlightCreateDto());
+            model.addAttribute("airportList", airportService.findAll());
+            return "user/trip";
         }
         return "redirect:/trips/" + trip;
     }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @Controller
 @RequestMapping("/admin")
 @AllArgsConstructor
@@ -49,8 +51,13 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/users/add")
-    public String addUser(UserCreateDto createDto){
-        userService.save(createDto);
+    public String addUser(UserCreateDto createDto, Model model){
+        try {
+            userService.save(createDto);
+        }catch(Exception e){
+            model.addAttribute("error", "The email is already used by an user!!");
+            return "admin/users/createUser";
+        }
         return "redirect:/admin/users";
     }
 

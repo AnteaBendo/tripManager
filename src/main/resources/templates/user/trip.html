@@ -95,6 +95,13 @@
     </div>
   </div>
     <div class="addFlight" th:if="${trip.status.getStatus().equals('APPROVED')}">
+
+      <div th:if="${error}">
+        <div th:text="${error}" class="alert alert-danger my-2" role="alert">>
+
+        </div>
+      </div>
+
       <p>
       <h5 class="trips"  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add another flight</h5>
       </p>

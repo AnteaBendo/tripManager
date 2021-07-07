@@ -21,6 +21,12 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <h4 class="mb-5">Add User</h4>
+      <div th:if="${error}">
+        <div th:text="${error}" class="alert alert-danger" role="alert">
+
+        </div>
+
+      </div>
       <form action="/admin/users/add" th:object="${createDto}" method="POST">
         <div class="row">
           <div class="col-6 gy-3">
